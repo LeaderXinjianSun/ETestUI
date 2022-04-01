@@ -1,0 +1,25 @@
+﻿using ETestUI.Config.ViewModels;
+using ETestUI.Config.Views;
+using Prism.Ioc;
+using Prism.Modularity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ETestUI.Config
+{
+    public class ConfigUIModule : IModule
+    {
+        public void OnInitialized(IContainerProvider containerProvider)
+        {
+            
+        }
+
+        public void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterForNavigation<ConfigMainView, ConfigMainViewModel>();
+        }
+    }
+}
