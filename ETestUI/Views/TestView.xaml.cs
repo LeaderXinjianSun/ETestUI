@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ETestUI.Views
 {
     /// <summary>
-    /// LoginView.xaml 的交互逻辑
+    /// TestView.xaml 的交互逻辑
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class TestView : UserControl
     {
-        public LoginView()
+        public TestView()
         {
             InitializeComponent();
         }

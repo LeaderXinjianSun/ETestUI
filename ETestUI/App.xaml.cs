@@ -1,5 +1,4 @@
-﻿using ETestUI.Config;
-using ETestUI.Test;
+﻿using ETestUI.Service;
 using ETestUI.ViewModels;
 using ETestUI.Views;
 using Prism.DryIoc;
@@ -25,29 +24,12 @@ namespace ETestUI
         {
             return Container.Resolve<MainWindow>();
         }
-        protected override void OnInitialized()
-        {
-            var dialog = Container.Resolve<IDialogService>();
 
-            dialog.ShowDialog("LoginView", callback =>
-            {
-                if (callback.Result != ButtonResult.OK)
-                {
-                    Environment.Exit(0);
-                    return;
-                }
-                base.OnInitialized();
-            });
-        }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterDialog<LoginView, LoginViewModel>();
-        }
-        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
-        {
-            moduleCatalog.AddModule<TestUIModule>();
-            moduleCatalog.AddModule<ConfigUIModule>();
-            base.ConfigureModuleCatalog(moduleCatalog);
+            containerRegistry.RegisterSingleton<ICommunicationChannelService, SerialPortChannelService>();
+            containerRegistry.RegisterForNavigation<ManageProjectView, ManageProjectViewModel>();
+            containerRegistry.RegisterForNavigation<TestView, TestViewModel>();
         }
     }
 }

@@ -1,25 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <ApplicationIcon>run_1.ico</ApplicationIcon>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ApplicationIcon>run_1.ico</ApplicationIcon>
+	</PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Images\create new post.png" />
+    <None Remove="Views\Images\open 打开文件.png" />
+    <None Remove="Views\Images\Tools.png" />
+    <None Remove="Views\Images\培训考试.png" />
+    <None Remove="Views\Images\齿轮，设置，设定，配置，参数.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\Images\齿轮，设置，设定，配置，参数.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
     <Content Include="run_1.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
-    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+    <Resource Include="Views\Images\create new post.png" />
+    <Resource Include="Views\Images\open 打开文件.png" />
+    <Resource Include="Views\Images\Tools.png" />
+    <Resource Include="Views\Images\培训考试.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ETestUI.Config\ETestUI.Config.csproj" />
-    <ProjectReference Include="..\ETestUI.Test\ETestUI.Test.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NLog" Version="4.7.15" />
+    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+    <PackageReference Include="System.IO.Ports" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

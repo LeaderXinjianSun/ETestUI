@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ETestUI.Config.ViewModels
+namespace ETestUI.ViewModels
 {
-    public class ConfigMainViewModel : BindableBase
+    public class TestViewModel : BindableBase
     {
     }
 }

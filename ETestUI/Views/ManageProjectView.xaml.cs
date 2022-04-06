@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ETestUI.Config.Views
+namespace ETestUI.Views
 {
     /// <summary>
-    /// ConfigMainView.xaml 的交互逻辑
+    /// ManageProjectView.xaml 的交互逻辑
     /// </summary>
-    public partial class ConfigMainView : UserControl
+    public partial class ManageProjectView : UserControl
     {
-        public ConfigMainView()
+        public ManageProjectView()
         {
             InitializeComponent();
         }
