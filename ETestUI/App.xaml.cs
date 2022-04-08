@@ -28,8 +28,13 @@ namespace ETestUI
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<ICommunicationChannelService, SerialPortChannelService>();
+            containerRegistry.RegisterSingleton<IParameterService, ParameterService>();
             containerRegistry.RegisterForNavigation<ManageProjectView, ManageProjectViewModel>();
             containerRegistry.RegisterForNavigation<TestView, TestViewModel>();
+            containerRegistry.RegisterForNavigation<ProjectInfoView, ProjectInfoViewModel>();
+            containerRegistry.RegisterForNavigation<TestPointInfoView, TestPointInfoViewModel>();
+            containerRegistry.RegisterForNavigation<TestSegmentView, TestSegmentViewModel>();
+            containerRegistry.RegisterForNavigation<SegmentDetailView, SegmentDetailViewModel>();
         }
     }
 }

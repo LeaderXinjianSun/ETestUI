@@ -9,6 +9,7 @@ namespace ETestUI.Common.Models
     public class Param
     {
         public string? COM;
+        public int SelectedIndex;
         public List<Project>? Projects;
     }
     public class Project

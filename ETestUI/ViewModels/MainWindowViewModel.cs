@@ -20,9 +20,9 @@ namespace ETestUI.ViewModels
     {
         #region 变量
         private readonly ICommunicationChannelService _communicationChannelService;
+        private readonly IParameterService _parameterService;
         private readonly IRegionManager _regionManager;
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        Param param;
         #endregion
         #region 属性
         private string title = "ETestUI";
@@ -64,7 +64,8 @@ namespace ETestUI.ViewModels
         {
             try
             {
-                var r = _communicationChannelService.Open(param.COM);
+                _parameterService.Load(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
+                var r = _communicationChannelService.Open(_parameterService.MyParam.COM);
                 logger.Info("软件加载完成");
             }
             catch (Exception ex)
@@ -107,13 +108,12 @@ namespace ETestUI.ViewModels
         }
         #endregion
         #region 构造函数
-        public MainWindowViewModel(ICommunicationChannelService communicationChannelService,IRegionManager regionManager)
+        public MainWindowViewModel(IParameterService parameterService, ICommunicationChannelService communicationChannelService,IRegionManager regionManager)
         {
             _regionManager = regionManager;
             NlogConfig();
             _communicationChannelService = communicationChannelService;
-            LoadParm();
-
+            _parameterService = parameterService;
         }
         #endregion
         #region 功能函数
@@ -132,18 +132,6 @@ namespace ETestUI.ViewModels
 
             // Apply config           
             NLog.LogManager.Configuration = config;
-        }
-        private void LoadParm()
-        {
-            try
-            {
-                string jsonString = File.ReadAllText(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
-                param = JsonConvert.DeserializeObject<Param>(jsonString);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-            }
         }
         #endregion
         #endregion

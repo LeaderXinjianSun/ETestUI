@@ -7,6 +7,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:ETestUI.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
     d:DesignHeight="660"
     d:DesignWidth="1024"
     mc:Ignorable="d">
@@ -17,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <TreeView>
             <i:Interaction.Behaviors>
-                <local:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem,Mode=OneWayToSource}" />
+                <local:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" />
             </i:Interaction.Behaviors>
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
@@ -40,5 +41,6 @@
             </TreeViewItem>
             <TreeViewItem Header="全局设定" />
         </TreeView>
+        <ContentControl Grid.Column="1" prism:RegionManager.RegionName="ProjectContentRegion" />
     </Grid>
 </UserControl>
