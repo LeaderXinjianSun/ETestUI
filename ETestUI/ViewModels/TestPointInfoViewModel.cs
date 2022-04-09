@@ -33,6 +33,7 @@ namespace ETestUI.ViewModels
         {
             Console.WriteLine(Points[(int)index].Alias);
             _parameterService.MyParam.Projects[_parameterService.MyParam.SelectedIndex].TestPoints[(int)index].Alias = Points[(int)index].Alias;
+            _parameterService.MyParam.Projects[_parameterService.MyParam.SelectedIndex].Modify = DateTime.Now;
             _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
         }
         #endregion

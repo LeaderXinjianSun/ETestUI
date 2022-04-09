@@ -27,21 +27,41 @@
     </UserControl.Resources>
     <Grid>
         <Canvas>
-            <GroupBox Header="测试段数据" Width="240" Height="400" Canvas.Top="10" Canvas.Left="10">
-                <ListView>
-
-                </ListView>
+            <GroupBox
+                Canvas.Left="10"
+                Canvas.Top="10"
+                Width="240"
+                Height="400"
+                Header="测试段数据">
+                <ListView ItemsSource="{Binding Segments}" SelectedIndex="{Binding SelectedIndex}" />
             </GroupBox>
-            <StackPanel Canvas.Top="27" Canvas.Left="280">
-                <TextBox></TextBox>
-                <StackPanel Orientation="Horizontal" Margin="0,10">
-                    <Button Content="添加"></Button>
-                    <Button Content="删除" Margin="60,0,0,0"></Button>
+            <StackPanel Canvas.Left="280" Canvas.Top="27">
+                <TextBox Text="{Binding NewName}" />
+                <StackPanel Margin="0,10" Orientation="Horizontal">
+                    <Button
+                        Command="{Binding OperateCommand}"
+                        CommandParameter="0"
+                        Content="添加" />
+                    <Button
+                        Margin="60,0,0,0"
+                        Command="{Binding OperateCommand}"
+                        CommandParameter="1"
+                        Content="删除" />
                 </StackPanel>
-                <Button Content="上移" HorizontalAlignment="Left" Margin="0,60,0,0"></Button>
-                <Button Content="下移" HorizontalAlignment="Left" Margin="0,10,0,0"></Button>
+                <Button
+                    Margin="0,60,0,0"
+                    HorizontalAlignment="Left"
+                    Command="{Binding OperateCommand}"
+                    CommandParameter="2"
+                    Content="上移" />
+                <Button
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Left"
+                    Command="{Binding OperateCommand}"
+                    CommandParameter="3"
+                    Content="下移" />
             </StackPanel>
         </Canvas>
-   
+
     </Grid>
 </UserControl>

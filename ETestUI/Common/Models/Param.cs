@@ -33,6 +33,7 @@ namespace ETestUI.Common.Models
     public class Segment
     {
         public int Id;
+        public string Name;
         public SegmentType segmentType;
         public OpenTable openTable;
         public ShortTable shortTable;

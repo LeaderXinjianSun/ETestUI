@@ -1,11 +1,14 @@
-﻿using ETestUI.Common.Models;
+﻿using ETestUI.Common;
+using ETestUI.Common.Models;
 using ETestUI.Service;
 using ETestUI.Views;
 using Newtonsoft.Json;
 using NLog;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,6 +24,8 @@ namespace ETestUI.ViewModels
         #region 变量
         private readonly ICommunicationChannelService _communicationChannelService;
         private readonly IParameterService _parameterService;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IDialogService _dialogService;
         private readonly IRegionManager _regionManager;
         private static Logger logger = LogManager.GetCurrentClassLogger();
         #endregion
@@ -37,11 +42,17 @@ namespace ETestUI.ViewModels
             get { return version; }
             set { SetProperty(ref version, value); }
         }
-        private DateTime statusDatetime = DateTime.Now;
+        private DateTime statusDatetime;
         public DateTime StatusDatetime
         {
             get { return statusDatetime; }
             set { SetProperty(ref statusDatetime, value); }
+        }
+        private string projectName;
+        public string ProjectName
+        {
+            get { return projectName; }
+            set { SetProperty(ref projectName, value); }
         }
         #endregion
         #region 方法绑定
@@ -67,7 +78,12 @@ namespace ETestUI.ViewModels
                 _parameterService.Load(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
 
                 var r = _communicationChannelService.Open(_parameterService.MyParam.COM);
+                if (_parameterService.MyParam.Projects.Count == 0)
+                    ProjectName = "null";
+                else
+                    ProjectName = _parameterService.MyParam.Projects[_parameterService.MyParam.SelectedIndex].Name;
                 logger.Info("软件加载完成");
+                Run();
             }
             catch (Exception ex)
             {
@@ -94,6 +110,21 @@ namespace ETestUI.ViewModels
                 case "0":
                     break;
                 case "1":
+                    _dialogService.ShowDialog("LoadProjectDialog",arg => {
+                        if (arg.Result == ButtonResult.Yes)
+                        {
+                            int index = arg.Parameters.GetValue<int>("Index");
+                            if (_parameterService.MyParam.SelectedIndex != index)
+                            {
+                                _parameterService.MyParam.SelectedIndex = index;
+                                _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
+                                _eventAggregator.GetEvent<MessageEvent>().Publish(new MessageItem { Sender = this, Message = "Select" });
+                                ProjectName = _parameterService.MyParam.Projects[index].Name;
+                            }
+                            _regionManager.RequestNavigate("MainContentRegion", "ManageProjectView");
+                            _regionManager.RequestNavigate("ProjectContentRegion", "ProjectInfoView");
+                        }
+                    });
                     break;
                 case "2":
                     _regionManager.RequestNavigate("MainContentRegion", "ManageProjectView");
@@ -109,8 +140,10 @@ namespace ETestUI.ViewModels
         }
         #endregion
         #region 构造函数
-        public MainWindowViewModel(IParameterService parameterService, ICommunicationChannelService communicationChannelService,IRegionManager regionManager)
+        public MainWindowViewModel(IParameterService parameterService, ICommunicationChannelService communicationChannelService,IRegionManager regionManager, IDialogService dialogService, IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
+            _dialogService = dialogService;
             _regionManager = regionManager;
             NlogConfig();
             _communicationChannelService = communicationChannelService;
@@ -118,6 +151,20 @@ namespace ETestUI.ViewModels
         }
         #endregion
         #region 功能函数
+        #region 运行
+        private async void Run()
+        {
+            while (true)
+            {
+                try
+                {
+                    StatusDatetime = DateTime.Now;
+                }
+                catch { }
+                await Task.Delay(1000);
+            }
+        }
+        #endregion
         #region 其他
         private void NlogConfig()
         {

@@ -1,6 +1,7 @@
 ﻿using ETestUI.Common;
 using ETestUI.Service;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
@@ -17,6 +18,7 @@ namespace ETestUI.ViewModels
     {        
         #region 变量
         private readonly IParameterService _parameterService;
+        private readonly IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
         #endregion
         #region 属性绑定
@@ -71,21 +73,48 @@ namespace ETestUI.ViewModels
         }
         #endregion
         #region 构造函数
-        public ManageProjectViewModel(IParameterService parameterService, IRegionManager regionManager)
+        public ManageProjectViewModel(IParameterService parameterService, IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             _regionManager = regionManager;
             _parameterService = parameterService;
+            _eventAggregator = eventAggregator;
+            eventAggregator.GetEvent<MessageEvent>().Subscribe(MessageReceived);
+            Reload();
+        }
 
-            TestItem testItem1 = new TestItem() { Name = "段1",Index = 0};
-            testItem1.Members.Add(new TestItemMember() { Name = "网络表",Index = 0});
-            testItem1.Members.Add(new TestItemMember() { Name = "开路", Index = 0 });
 
-            TestItem testItem2 = new TestItem() { Name = "段2", Index = 1 };
-            testItem2.Members.Add(new TestItemMember() { Name = "网络表", Index = 1 });
-            testItem2.Members.Add(new TestItemMember() { Name = "开路", Index = 1 });
-
-            TestItems.Add(testItem1);
-            TestItems.Add(testItem2);
+        #endregion
+        #region 功能函数
+        private void Reload()
+        {
+            TestItems.Clear();
+            for (int i = 0; i < _parameterService.MyParam.Projects[_parameterService.MyParam.SelectedIndex].Segments.Count; i++)
+            {
+                int index = _parameterService.MyParam.Projects[_parameterService.MyParam.SelectedIndex].Segments[i].Id;
+                TestItem testItem1 = new TestItem() { Name = _parameterService.MyParam.Projects[_parameterService.MyParam.SelectedIndex].Segments[i].Name, Index = index };
+                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "开路表" });
+                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "短路表" });
+                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "LED压降表" });
+                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "LED亮灭表" });
+                TestItems.Add(testItem1);
+            }
+        }
+        #endregion
+        #region 事件响应函数
+        private void MessageReceived(MessageItem msg)
+        {
+            switch (msg.Message)
+            {
+                case "Select":
+                    Reload();
+                    _regionManager.RequestNavigate("ProjectContentRegion", "ProjectInfoView");
+                    break;
+                case "Reload":
+                    Reload();
+                    break;
+                default:
+                    break;
+            }
         }
         #endregion
     }

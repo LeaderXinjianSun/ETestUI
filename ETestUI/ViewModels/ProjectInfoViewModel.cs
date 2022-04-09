@@ -1,5 +1,7 @@
-﻿using ETestUI.Service;
+﻿using ETestUI.Common;
+using ETestUI.Service;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
@@ -58,7 +60,7 @@ namespace ETestUI.ViewModels
                                 _parameterService.Add(NewName);
                                 _parameterService.MyParam.SelectedIndex = _parameterService.MyParam.Projects.Count - 1;
                                 _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
-                                Load(_parameterService.MyParam.SelectedIndex);
+                                ReLoad();
                             }
                             else
                             {
@@ -88,16 +90,16 @@ namespace ETestUI.ViewModels
         public ProjectInfoViewModel(IParameterService parameterService, IDialogService dialogService)
         {
             _parameterService = parameterService;
-            Load(_parameterService.MyParam.SelectedIndex);
+            ReLoad();
             _dialogService = dialogService;
         }
         #endregion
         #region 功能函数
-        private void Load(int selectindex)
+        private void ReLoad()
         {
-            ProjectName = _parameterService.MyParam.Projects[selectindex].Name;
-            CreateTime = _parameterService.MyParam.Projects[selectindex].Create;
-            ModifyTime = _parameterService.MyParam.Projects[selectindex].Modify;
+            ProjectName = _parameterService.MyParam.Projects[_parameterService.MyParam.SelectedIndex].Name;
+            CreateTime = _parameterService.MyParam.Projects[_parameterService.MyParam.SelectedIndex].Create;
+            ModifyTime = _parameterService.MyParam.Projects[_parameterService.MyParam.SelectedIndex].Modify;
         }
         //OnNavigatedTo: 导航完成前, 此处可以传递过来的参数以及是否允许导航等动作的控制。
         public void OnNavigatedTo(NavigationContext navigationContext)
@@ -114,6 +116,9 @@ namespace ETestUI.ViewModels
         {
             
         }
+        #endregion
+        #region 事件响应函数
+
         #endregion
 
     }
