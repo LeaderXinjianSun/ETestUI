@@ -9,5 +9,6 @@ namespace ETestUI.ViewModels
 {
     public class TestSegmentViewModel : BindableBase
     {
+
     }
 }

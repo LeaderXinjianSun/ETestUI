@@ -29,6 +29,13 @@ namespace ETestUI.Service
                     project.Id = MyParam.Projects.Max(t => t.Id) + 1;
                 project.Create = DateTime.Now;
                 project.Modify = DateTime.Now;
+                for (int i = 0; i < 100; i++)
+                {
+                    project.TestPoints.Add(new TestPoint() { 
+                        Index = i + 1,
+                        Name = $"卡1通道{i + 1}"                       
+                    });
+                }
                 MyParam.Projects.Add(project);
                 return true;
             }
