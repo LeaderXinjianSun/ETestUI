@@ -18,7 +18,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="100"
-                    Binding="{Binding Id}"
+                    Binding="{Binding Index}"
                     Header="内部点"
                     IsReadOnly="True" />
                 <DataGridTextColumn

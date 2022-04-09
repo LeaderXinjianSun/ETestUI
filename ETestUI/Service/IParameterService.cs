@@ -10,7 +10,8 @@ namespace ETestUI.Service
     public interface IParameterService
     {
         public Param MyParam { get; set; }
-        bool Load(string path);
-        bool Save(string path);
+        public bool Load(string path);
+        public bool Save(string path);
+        public bool Add(string name);
     }
 }

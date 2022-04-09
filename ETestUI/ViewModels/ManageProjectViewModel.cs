@@ -59,7 +59,9 @@ namespace ETestUI.ViewModels
                     }
                     break;
                 case "TestItem":
-                    _regionManager.RequestNavigate("ProjectContentRegion", "SegmentDetailView");
+                    var param = new NavigationParameters();
+                    param.Add("Parameter", 1);
+                    _regionManager.RequestNavigate("ProjectContentRegion", "SegmentDetailView", param);
                     break;
                 case "TestItemMember":
                     break;

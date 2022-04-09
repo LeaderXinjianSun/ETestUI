@@ -65,6 +65,7 @@ namespace ETestUI.ViewModels
             try
             {
                 _parameterService.Load(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
+
                 var r = _communicationChannelService.Open(_parameterService.MyParam.COM);
                 logger.Info("软件加载完成");
             }

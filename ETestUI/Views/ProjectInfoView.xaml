@@ -34,12 +34,20 @@
             <StackPanel Margin="0,10" Orientation="Horizontal">
                 <TextBlock Text="创建时间:" />
                 <TextBox IsEnabled="False" Text="{Binding CreateTime, StringFormat=yyyy/MM/dd HH:mm:ss, FallbackValue=2022/4/7 09:04:07}" />
-                <Button Margin="60,0,0,0" Content="项目删除" />
+                <Button
+                    Margin="60,0,0,0"
+                    Command="{Binding OperateCommand}"
+                    CommandParameter="1"
+                    Content="项目删除" />
             </StackPanel>
             <StackPanel Margin="0,10" Orientation="Horizontal">
                 <TextBlock Text="修改时间:" />
                 <TextBox IsEnabled="False" Text="{Binding ModifyTime, StringFormat=yyyy/MM/dd HH:mm:ss, FallbackValue=2022/4/7 09:04:07}" />
-                <Button Margin="60,0,0,0" Content="项目创建" />
+                <Button
+                    Margin="60,0,0,0"
+                    Command="{Binding OperateCommand}"
+                    CommandParameter="0"
+                    Content="项目创建" />
             </StackPanel>
         </StackPanel>
     </Grid>

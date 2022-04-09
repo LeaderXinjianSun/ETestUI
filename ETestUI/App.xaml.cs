@@ -1,6 +1,8 @@
 ﻿using ETestUI.Service;
 using ETestUI.ViewModels;
+using ETestUI.ViewModels.Dialogs;
 using ETestUI.Views;
+using ETestUI.Views.Dialogs;
 using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -35,6 +37,7 @@ namespace ETestUI
             containerRegistry.RegisterForNavigation<TestPointInfoView, TestPointInfoViewModel>();
             containerRegistry.RegisterForNavigation<TestSegmentView, TestSegmentViewModel>();
             containerRegistry.RegisterForNavigation<SegmentDetailView, SegmentDetailViewModel>();
+            containerRegistry.RegisterForNavigation<AddProjectDialog, AddProjectDialogViewModel>();
         }
     }
 }

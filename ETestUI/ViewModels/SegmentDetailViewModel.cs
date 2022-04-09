@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ETestUI.ViewModels
 {
-    public class SegmentDetailViewModel : BindableBase
+    public class SegmentDetailViewModel : BindableBase, INavigationAware
     {
         #region 属性绑定
         private ObservableCollection<TestSegmentItem> testSegmentItems = new ObservableCollection<TestSegmentItem>();
@@ -46,6 +47,21 @@ namespace ETestUI.ViewModels
         void ExecuteMouseDoubleClickCommand()
         {
             var aa = SelectedIndex;
+        }
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            var Parameter = navigationContext.Parameters.GetValue<int>("Parameter");
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return false;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            
         }
         #endregion
         public SegmentDetailViewModel()

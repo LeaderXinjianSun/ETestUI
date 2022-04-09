@@ -1,0 +1,51 @@
+﻿<UserControl
+    x:Class="ETestUI.Views.Dialogs.AddProjectDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ETestUI.Views.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="220"
+    d:DesignWidth="340"
+    mc:Ignorable="d">
+    <Grid Width="340" Height="220">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="2">
+            <TextBlock
+                Margin="10"
+                HorizontalAlignment="Left"
+                FontSize="20"
+                Text="新项目名称：" />
+            <TextBox
+                Margin="10"
+                FontSize="20"
+                Text="{Binding NewName}" />
+        </StackPanel>
+        <Button
+            Grid.Row="1"
+            Width="60"
+            Height="30"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Command="{Binding AddNewCommand}"
+            CommandParameter="0"
+            Content="确认" />
+        <Button
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="60"
+            Height="30"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Command="{Binding AddNewCommand}"
+            CommandParameter="1"
+            Content="取消" />
+    </Grid>
+</UserControl>
