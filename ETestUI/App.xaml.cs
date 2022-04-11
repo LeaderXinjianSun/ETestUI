@@ -43,6 +43,9 @@ namespace ETestUI
             containerRegistry.RegisterDialog<ShortPropertyDialog, ShortPropertyDialogViewModel>();
             containerRegistry.RegisterForNavigation<ShortGroupView, ShortGroupViewModel>();
             containerRegistry.RegisterDialog<SelectPointDialog, SelectPointDialogViewModel>();
+            containerRegistry.RegisterDialog<RgPropertyDialog, RgPropertyDialogViewModel>();
+            containerRegistry.RegisterDialog<ResPropertyDialog, ResPropertyDialogViewModel>();
+            containerRegistry.RegisterDialog<TvsPropertyDialog, TvsPropertyDialogViewModel>();
         }
     }
 }

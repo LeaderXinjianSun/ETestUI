@@ -114,8 +114,52 @@ namespace ETestUI.ViewModels
                         }
                         break;
                     case 2:
+                        {
+                            DialogParameters param = new DialogParameters();
+                            param.Add("Id", seg.Id);
+                            _dialogService.ShowDialog("RgPropertyDialog", param, arg => {
+                                if (arg.Result == ButtonResult.Yes)
+                                {
+                                    double PropUpLimit = arg.Parameters.GetValue<double>("PropUpLimit");
+                                    double PropDownLimit = arg.Parameters.GetValue<double>("PropDownLimit");
+                                    seg.rgProperty.PropUpLimit = PropUpLimit;
+                                    seg.rgProperty.PropDownLimit = PropDownLimit;
+                                    _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
+                                }
+                            });
+                        }
                         break;
                     case 3:
+                        {
+                            DialogParameters param = new DialogParameters();
+                            param.Add("Id", seg.Id);
+                            _dialogService.ShowDialog("ResPropertyDialog", param, arg => {
+                                if (arg.Result == ButtonResult.Yes)
+                                {
+                                    double PropUpLimit = arg.Parameters.GetValue<double>("PropUpLimit");
+                                    double PropDownLimit = arg.Parameters.GetValue<double>("PropDownLimit");
+                                    seg.resProperty.PropUpLimit = PropUpLimit;
+                                    seg.resProperty.PropDownLimit = PropDownLimit;
+                                    _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
+                                }
+                            });
+                        }
+                        break;
+                    case 4:
+                        {
+                            DialogParameters param = new DialogParameters();
+                            param.Add("Id", seg.Id);
+                            _dialogService.ShowDialog("TvsPropertyDialog", param, arg => {
+                                if (arg.Result == ButtonResult.Yes)
+                                {
+                                    double PropUpLimit = arg.Parameters.GetValue<double>("PropUpLimit");
+                                    double PropDownLimit = arg.Parameters.GetValue<double>("PropDownLimit");
+                                    seg.tvsProperty.PropUpLimit = PropUpLimit;
+                                    seg.tvsProperty.PropDownLimit = PropDownLimit;
+                                    _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
+                                }
+                            });
+                        }
                         break;
                     default:
                         break;

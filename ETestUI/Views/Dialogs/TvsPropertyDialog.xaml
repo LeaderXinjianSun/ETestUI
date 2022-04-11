@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="ETestUI.Views.Dialogs.ShortPropertyDialog"
+    x:Class="ETestUI.Views.Dialogs.TvsPropertyDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,12 +17,12 @@
             <StackPanel Margin="5,2" Orientation="Horizontal">
                 <TextBlock Width="40" Text="上限" />
                 <TextBox Width="100" Text="{Binding PropUpLimit}" />
-                <TextBlock Width="40" Text="KΩ" />
+                <TextBlock Width="40" Text="V" />
             </StackPanel>
             <StackPanel Margin="5,2" Orientation="Horizontal">
                 <TextBlock Width="40" Text="下限" />
                 <TextBox Width="100" Text="{Binding PropDownLimit}" />
-                <TextBlock Width="40" Text="KΩ" />
+                <TextBlock Width="40" Text="V" />
             </StackPanel>
         </StackPanel>
         <Button

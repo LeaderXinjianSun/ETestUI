@@ -87,7 +87,7 @@ namespace ETestUI.Common.Models
     public class RgProperty
     {
         public double PropUpLimit;
-        public int PropDownLimit;
+        public double PropDownLimit;
     }
     //电阻测试
     public class ResProperty
