@@ -114,15 +114,18 @@ namespace ETestUI.ViewModels
                         if (arg.Result == ButtonResult.Yes)
                         {
                             int index = arg.Parameters.GetValue<int>("Index");
-                            if (_parameterService.MyParam.SelectedIndex != index)
+                            if (index != -1)
                             {
-                                _parameterService.MyParam.SelectedIndex = index;
-                                _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
-                                _eventAggregator.GetEvent<MessageEvent>().Publish(new MessageItem { Sender = this, Message = "Select" });
-                                ProjectName = _parameterService.MyParam.Projects[index].Name;
+                                if (_parameterService.MyParam.SelectedIndex != index)
+                                {
+                                    _parameterService.MyParam.SelectedIndex = index;
+                                    _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
+                                    _eventAggregator.GetEvent<MessageEvent>().Publish(new MessageItem { Sender = this, Message = "Select" });
+                                    ProjectName = _parameterService.MyParam.Projects[index].Name;
+                                }
+                                _regionManager.RequestNavigate("MainContentRegion", "ManageProjectView");
+                                _regionManager.RequestNavigate("ProjectContentRegion", "ProjectInfoView");
                             }
-                            _regionManager.RequestNavigate("MainContentRegion", "ManageProjectView");
-                            _regionManager.RequestNavigate("ProjectContentRegion", "ProjectInfoView");
                         }
                     });
                     break;

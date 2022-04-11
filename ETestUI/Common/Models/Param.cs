@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace ETestUI.Common.Models
 {
+    public class CardConfig
+    {
+        public List<int> Cards;
+    }
     public class Param
     {
         public string COM;
@@ -35,24 +39,33 @@ namespace ETestUI.Common.Models
         public int Id;
         public string Name;
         public SegmentType segmentType;
-        public OpenTable openTable;
-        public ShortTable shortTable;
-        public LEDVoltageTable lEDVoltageTable;
-        public LEDLightTable lEDLightTable;
+        public OpenProperty openProperty;
+        public ShortProperty shortProperty;
+        public RgProperty rgProperty;
+        public ResProperty resProperty;
+        public TvsProperty tvsProperty;
+        public List<ShortGroupItem> ShortGroupList;
+        public List<OpenItem> OpenList;
+        public List<ShortItem> ShortList;
         public Segment()
         {
-            openTable = new OpenTable();
-            shortTable = new ShortTable();
-            lEDVoltageTable = new LEDVoltageTable();
-            lEDLightTable = new LEDLightTable();
+            openProperty = new OpenProperty();
+            shortProperty = new ShortProperty();
+            rgProperty = new RgProperty();
+            resProperty = new ResProperty();
+            tvsProperty = new TvsProperty();
+            ShortGroupList = new List<ShortGroupItem>();
+            OpenList = new List<OpenItem>();
+            ShortList = new List<ShortItem>();
         }
     }
     public enum SegmentType
     {
         开路, 
         短路, 
-        LED压降, 
-        LED亮灭
+        光敏, 
+        电阻,
+        稳压管
     }
     public class TestPoint
     {
@@ -60,22 +73,50 @@ namespace ETestUI.Common.Models
         public string Name;
         public string Alias;
     }
-    public class TestPointTableBase
+    public class OpenProperty
     {
-        public string Name;
-        public List<int> Points;
-        public bool IsUsed;
-        public TestPointTableBase()
-        {
-            Points = new List<int>();
-        }
+        public double PropUpLimit;
+        public double PropDownLimit;
     }
-    public class OpenTable : TestPointTableBase
-    { }
-    public class ShortTable : TestPointTableBase
-    { }
-    public class LEDVoltageTable : TestPointTableBase
-    { }
-    public class LEDLightTable : TestPointTableBase
-    { }
+    public class ShortProperty
+    {
+        public double PropUpLimit;
+        public double PropDownLimit;
+    }
+    //光敏电阻测试
+    public class RgProperty
+    {
+        public double PropUpLimit;
+        public int PropDownLimit;
+    }
+    //电阻测试
+    public class ResProperty
+    {
+        public double PropUpLimit;
+        public double PropDownLimit;
+    }
+    //双向稳压管测试
+    public class TvsProperty
+    {
+        public double PropUpLimit;
+        public double PropDownLimit;
+    }
+    public class ShortGroupItem
+    {
+        public int Id;
+        public string Content;
+        public string Remark;
+    }
+    public class OpenItem
+    {
+        public int Id;
+        public string Content;
+        public bool Select;
+    }
+    public class ShortItem
+    {
+        public int Id;
+        public string Content;
+        public bool Select;
+    }
 }

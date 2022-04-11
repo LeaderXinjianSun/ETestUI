@@ -61,11 +61,26 @@ namespace ETestUI.ViewModels
                     }
                     break;
                 case "TestItem":
-                    var param = new NavigationParameters();
-                    param.Add("Parameter", 1);
-                    _regionManager.RequestNavigate("ProjectContentRegion", "SegmentDetailView", param);
+                    {
+                        var param = new NavigationParameters();
+                        param.Add("Index", ((TestItem)SelectedItem).Index);
+                        _regionManager.RequestNavigate("ProjectContentRegion", "SegmentDetailView", param);
+                    }
                     break;
                 case "TestItemMember":
+                    {
+                        var param = new NavigationParameters();
+                        param.Add("Index", ((TestItemMember)SelectedItem).Index);
+                        switch (((TestItemMember)SelectedItem).Name)
+                        {
+                            case "短路群":
+                                _regionManager.RequestNavigate("ProjectContentRegion", "ShortGroupView", param);
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                    }
                     break;
                 default:
                     break;
@@ -81,8 +96,6 @@ namespace ETestUI.ViewModels
             eventAggregator.GetEvent<MessageEvent>().Subscribe(MessageReceived);
             Reload();
         }
-
-
         #endregion
         #region 功能函数
         private void Reload()
@@ -92,10 +105,10 @@ namespace ETestUI.ViewModels
             {
                 int index = _parameterService.MyParam.Projects[_parameterService.MyParam.SelectedIndex].Segments[i].Id;
                 TestItem testItem1 = new TestItem() { Name = _parameterService.MyParam.Projects[_parameterService.MyParam.SelectedIndex].Segments[i].Name, Index = index };
-                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "开路表" });
-                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "短路表" });
-                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "LED压降表" });
-                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "LED亮灭表" });
+                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "短路群" });
+                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "光敏表" });
+                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "电阻表" });
+                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "电压表" });
                 TestItems.Add(testItem1);
             }
         }

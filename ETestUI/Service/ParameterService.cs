@@ -29,12 +29,21 @@ namespace ETestUI.Service
                     project.Id = MyParam.Projects.Max(t => t.Id) + 1;
                 project.Create = DateTime.Now;
                 project.Modify = DateTime.Now;
-                for (int i = 0; i < 100; i++)
+
+
+                string jsonString = File.ReadAllText(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "CardConfig.json"));
+                var cardConfig = JsonConvert.DeserializeObject<CardConfig>(jsonString);
+                int k = 1;
+                for (int i = 0; i < cardConfig.Cards.Count; i++)
                 {
-                    project.TestPoints.Add(new TestPoint() { 
-                        Index = i + 1,
-                        Name = $"卡1通道{i + 1}"                       
-                    });
+                    for (int j = 0; j < cardConfig.Cards[i]; j++)
+                    {
+                        project.TestPoints.Add(new TestPoint()
+                        {
+                            Index = k++,
+                            Name = $"卡{i + 1}通道{j + 1}"
+                        });
+                    }
                 }
                 MyParam.Projects.Add(project);
                 return true;

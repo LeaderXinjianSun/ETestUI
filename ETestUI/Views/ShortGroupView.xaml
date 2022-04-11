@@ -1,0 +1,159 @@
+﻿<UserControl
+    x:Class="ETestUI.Views.ShortGroupView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:ETestUI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="660"
+    d:DesignWidth="853"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="短路群">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <StackPanel
+                    Margin="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="60"
+                        Height="30"
+                        Margin="1,0"
+                        Command="{Binding OperateCommand}"
+                        CommandParameter="0"
+                        Content="添加" />
+                    <Button
+                        Width="60"
+                        Height="30"
+                        Margin="1,0"
+                        Command="{Binding OperateCommand}"
+                        CommandParameter="1"
+                        Content="删除" />
+                    <Button
+                        Width="60"
+                        Height="30"
+                        Margin="1,0"
+                        Command="{Binding OperateCommand}"
+                        CommandParameter="2"
+                        Content="转换" />
+                </StackPanel>
+                <DataGrid
+                    x:Name="ShortGroupList"
+                    Grid.Row="1"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    GridLinesVisibility="All"
+                    ItemsSource="{Binding ShortGroupList}"
+                    SelectedIndex="{Binding ShortGroupSelectedIndex}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="CellEditEnding">
+                            <i:InvokeCommandAction Command="{Binding CellChangedCommand}" CommandParameter="{Binding ElementName=ShortGroupList, Path=SelectedIndex}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Binding="{Binding Id}"
+                            Header="ID"
+                            IsReadOnly="True" />
+                        <DataGridTemplateColumn Width="200" Header="内容">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox IsReadOnly="True" Text="{Binding Content}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewMouseDoubleClick">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.MouseDoubleClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}}" CommandParameter="{Binding ElementName=ShortGroupList, Path=SelectedIndex}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn
+                            Width="100"
+                            Binding="{Binding Remark, UpdateSourceTrigger=PropertyChanged}"
+                            Header="备注" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <GroupBox Header="Open表">
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    GridLinesVisibility="All"
+                    ItemsSource="{Binding OpenList}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Id}" Header="ID" />
+                        <DataGridTextColumn
+                            Width="160"
+                            Binding="{Binding Content}"
+                            Header="内容" />
+                        <DataGridTextColumn
+                            Width="60"
+                            Binding="{Binding PropUpLimit}"
+                            Header="上限"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="60"
+                            Binding="{Binding PropDownLimit}"
+                            Header="下限"
+                            IsReadOnly="True" />
+                        <DataGridTemplateColumn Header="启用">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Select}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Header="Short表">
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    GridLinesVisibility="All"
+                    ItemsSource="{Binding ShortList}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Id}" Header="ID" />
+                        <DataGridTextColumn
+                            Width="200"
+                            Binding="{Binding Content}"
+                            Header="内容" />
+                        <DataGridTextColumn
+                            Width="60"
+                            Binding="{Binding PropUpLimit}"
+                            Header="上限"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="60"
+                            Binding="{Binding PropDownLimit}"
+                            Header="下限"
+                            IsReadOnly="True" />
+                        <DataGridTemplateColumn Header="启用">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Select}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>
