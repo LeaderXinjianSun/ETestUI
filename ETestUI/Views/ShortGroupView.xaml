@@ -92,16 +92,21 @@
             </Grid.RowDefinitions>
             <GroupBox Header="Open表">
                 <DataGrid
+                    x:Name="OpenList"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
                     GridLinesVisibility="All"
                     ItemsSource="{Binding OpenList}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Id}" Header="ID" />
+                        <DataGridTextColumn
+                            Binding="{Binding Id}"
+                            Header="ID"
+                            IsReadOnly="True" />
                         <DataGridTextColumn
                             Width="160"
                             Binding="{Binding Content}"
-                            Header="内容" />
+                            Header="内容"
+                            IsReadOnly="True" />
                         <DataGridTextColumn
                             Width="60"
                             Binding="{Binding PropUpLimit}"
@@ -115,7 +120,10 @@
                         <DataGridTemplateColumn Header="启用">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Select}" />
+                                    <CheckBox
+                                        Command="{Binding DataContext.OpenListCheckCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding ElementName=OpenList, Path=SelectedIndex}"
+                                        IsChecked="{Binding Select, UpdateSourceTrigger=PropertyChanged}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -124,16 +132,21 @@
             </GroupBox>
             <GroupBox Grid.Row="1" Header="Short表">
                 <DataGrid
+                    x:Name="ShortList"
                     AutoGenerateColumns="False"
                     CanUserAddRows="False"
                     GridLinesVisibility="All"
                     ItemsSource="{Binding ShortList}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Id}" Header="ID" />
+                        <DataGridTextColumn
+                            Binding="{Binding Id}"
+                            Header="ID"
+                            IsReadOnly="True" />
                         <DataGridTextColumn
                             Width="200"
                             Binding="{Binding Content}"
-                            Header="内容" />
+                            Header="内容"
+                            IsReadOnly="True" />
                         <DataGridTextColumn
                             Width="60"
                             Binding="{Binding PropUpLimit}"
@@ -147,7 +160,10 @@
                         <DataGridTemplateColumn Header="启用">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Select}" />
+                                    <CheckBox
+                                        Command="{Binding DataContext.ShortListCheckCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding ElementName=ShortList, Path=SelectedIndex}"
+                                        IsChecked="{Binding Select, UpdateSourceTrigger=PropertyChanged}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

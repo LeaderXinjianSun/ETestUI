@@ -59,7 +59,29 @@ namespace ETestUI.ViewModels
         private DelegateCommand<object> cellChangedCommand;
         public DelegateCommand<object> CellChangedCommand =>
             cellChangedCommand ?? (cellChangedCommand = new DelegateCommand<object>(ExecuteCellChangedCommand));
+        private DelegateCommand<object> openListCheckCommand;
+        public DelegateCommand<object> OpenListCheckCommand =>
+            openListCheckCommand ?? (openListCheckCommand = new DelegateCommand<object>(ExecuteOpenListCheckCommand));
+        private DelegateCommand<object> shortListCheckCommand;
+        public DelegateCommand<object> ShortListCheckCommand =>
+            shortListCheckCommand ?? (shortListCheckCommand = new DelegateCommand<object>(ExecuteShortListCheckCommand));
 
+        void ExecuteShortListCheckCommand(object obj)
+        {
+            if (seg != null)
+            {
+                seg.ShortList[(int)obj].Select = ShortList[(int)obj].Select;
+                _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
+            }
+        }
+        void ExecuteOpenListCheckCommand(object obj)
+        {
+            if (seg != null)
+            {
+                seg.OpenList[(int)obj].Select = OpenList[(int)obj].Select;
+                _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
+            }
+        }
         void ExecuteCellChangedCommand(object obj)
         {
             if (seg != null)
@@ -114,8 +136,78 @@ namespace ETestUI.ViewModels
                                 _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
                                 Reload();
                             }
+                        }                       
+                    }
+                    break;
+                case "2":
+                    if (seg != null)
+                    {
+                        int m = 1;
+                        seg.OpenList.Clear();
+                        for (int i = 0; i < seg.ShortGroupList.Count; i++)
+                        {
+                            if (!string.IsNullOrEmpty(seg.ShortGroupList[i].Content))
+                            {
+                                string[] strs = seg.ShortGroupList[i].Content.Split(new char[] { ','});
+                                if (strs.Length > 2)
+                                {
+                                    string[] strs1;
+                                    if (strs.Length % 2 != 0)
+                                    {
+                                        strs1 = (seg.ShortGroupList[i] .Content + ",0").Split(new char[] { ',' });                                       
+                                    }
+                                    else
+                                    {
+                                        strs1 = strs;
+                                    }
+                                    for (int j = 0; j < strs1.Length / 2 - 1; j++)
+                                    {
+                                        for (int k = j + 1; k < strs1.Length / 2; k++)
+                                        {
+                                            string content = "";
+                                            content += strs1[j * 2] + ",";
+                                            content += strs1[k * 2] + ",";
+                                            content += strs1[j * 2 + 1] + ",";
+                                            content += strs1[k * 2 + 1];
+                                            seg.OpenList.Add(new Common.Models.OpenItem()
+                                            {
+                                                Content = content,
+                                                Id = m++,
+                                                Select = true
+                                            });
+                                        }
+                                    }
+                              
+                                }
+                            }
                         }
-                       
+
+                        m = 1;
+                        seg.ShortList.Clear();
+                        List<string> contentList = new List<string>();
+                        for (int i = 0; i < seg.ShortGroupList.Count; i++)
+                        {
+                            if (!string.IsNullOrEmpty(seg.ShortGroupList[i].Content))
+                            {
+                                contentList.Add(seg.ShortGroupList[i].Content);
+                            }
+                        }
+                        if (contentList.Count > 1)
+                        {
+                            for (int i = 0; i < contentList.Count - 1; i++)
+                            {
+                                for (int j = i + 1; j < contentList.Count; j++)
+                                {
+                                    seg.ShortList.Add(new Common.Models.ShortItem() { 
+                                        Id = m++,
+                                        Content = contentList[i] + "-" + contentList[j],
+                                        Select = true
+                                    });
+                                }
+                            }
+                        }
+                        _parameterService.Save(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Param.json"));
+                        Reload();
                     }
                     break;
                 default:

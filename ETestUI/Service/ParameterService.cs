@@ -74,6 +74,7 @@ namespace ETestUI.Service
         {
             try
             {
+                MyParam.Projects[MyParam.SelectedIndex].Modify = DateTime.Now;
                 string jsonString = JsonConvert.SerializeObject(MyParam, Formatting.Indented);
                 File.WriteAllText(path, jsonString);
                 return true;
