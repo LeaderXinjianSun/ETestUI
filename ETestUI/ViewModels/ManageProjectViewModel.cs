@@ -76,10 +76,18 @@ namespace ETestUI.ViewModels
                             case "短路群":
                                 _regionManager.RequestNavigate("ProjectContentRegion", "ShortGroupView", param);
                                 break;
+                            case "光敏表":
+                                _regionManager.RequestNavigate("ProjectContentRegion", "RgTableView", param);
+                                break;
+                            case "电阻表":
+                                _regionManager.RequestNavigate("ProjectContentRegion", "ResTableView", param);
+                                break;
+                            case "稳压管表":
+                                _regionManager.RequestNavigate("ProjectContentRegion", "TvsTableView", param);
+                                break;
                             default:
                                 break;
-                        }
-                        
+                        }                        
                     }
                     break;
                 default:
@@ -108,7 +116,7 @@ namespace ETestUI.ViewModels
                 testItem1.Members.Add(new TestItemMember() { Index = index, Name = "短路群" });
                 testItem1.Members.Add(new TestItemMember() { Index = index, Name = "光敏表" });
                 testItem1.Members.Add(new TestItemMember() { Index = index, Name = "电阻表" });
-                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "电压表" });
+                testItem1.Members.Add(new TestItemMember() { Index = index, Name = "稳压管表" });
                 TestItems.Add(testItem1);
             }
         }

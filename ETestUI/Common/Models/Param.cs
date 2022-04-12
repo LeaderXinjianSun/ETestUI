@@ -47,6 +47,9 @@ namespace ETestUI.Common.Models
         public List<ShortGroupItem> ShortGroupList;
         public List<OpenItem> OpenList;
         public List<ShortItem> ShortList;
+        public List<RgItem> RgList;
+        public List<ResItem> ResList;
+        public List<TvsItem> TvsList;
         public Segment()
         {
             openProperty = new OpenProperty();
@@ -57,6 +60,9 @@ namespace ETestUI.Common.Models
             ShortGroupList = new List<ShortGroupItem>();
             OpenList = new List<OpenItem>();
             ShortList = new List<ShortItem>();
+            RgList = new List<RgItem>();
+            ResList = new List<ResItem>();
+            TvsList = new List<TvsItem>();
         }
     }
     public enum SegmentType
@@ -114,6 +120,24 @@ namespace ETestUI.Common.Models
         public bool Select;
     }
     public class ShortItem
+    {
+        public int Id;
+        public string Content;
+        public bool Select;
+    }
+    public class RgItem
+    {
+        public int Id;
+        public string Content;
+        public bool Select;
+    }
+    public class ResItem
+    {
+        public int Id;
+        public string Content;
+        public bool Select;
+    }
+    public class TvsItem
     {
         public int Id;
         public string Content;
