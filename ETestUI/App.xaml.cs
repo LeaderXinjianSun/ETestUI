@@ -51,6 +51,7 @@ namespace ETestUI
             containerRegistry.RegisterForNavigation<ResTableView, ResTableViewModel>();
             containerRegistry.RegisterDialog<FourPointSelectDialog, FourPointSelectDialogViewModel>();
             containerRegistry.RegisterForNavigation<TvsTableView, TvsTableViewModel>();
+            containerRegistry.RegisterForNavigation<GlobalConfigView, GlobalConfigViewModel>();
         }
     }
 }

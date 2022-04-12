@@ -9,5 +9,15 @@ namespace ETestUI.ViewModels
 {
     public class TestViewModel : BindableBase
     {
+        private int result = 1;
+        public int Result
+        {
+            get { return result; }
+            set { SetProperty(ref result, value); }
+        }
+        public TestViewModel()
+        {
+
+        }
     }
 }

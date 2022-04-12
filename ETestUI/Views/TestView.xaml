@@ -8,7 +8,205 @@
     d:DesignHeight="660"
     d:DesignWidth="1024"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="TextName" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="TextValue" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <local:ResultColorConverter x:Key="ColorConverter" />
+        <local:ResultTextConverter x:Key="TextConverter" />
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="测试界面" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Margin="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Style="{StaticResource TextName}" Text="项目名" />
+            <Border
+                Grid.Row="1"
+                Background="#FFFFF7DB"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock Style="{StaticResource TextValue}" Text="{Binding ProjectName, FallbackValue=123}" />
+            </Border>
+            <TextBlock
+                Grid.Row="2"
+                Style="{StaticResource TextName}"
+                Text="条码" />
+            <Border
+                Grid.Row="3"
+                Background="#FFFFF6DA"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock Style="{StaticResource TextValue}" Text="{Binding Barcode, FallbackValue=123}" />
+            </Border>
+            <Grid
+                Grid.Row="4"
+                Margin="0,4,0,0"
+                Background="#FFFFEBCE">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="22"
+                    Text="测试步骤" />
+            </Grid>
+            <TextBox Grid.Row="5" />
+            <TextBlock
+                Grid.Row="6"
+                Style="{StaticResource TextName}"
+                Text="测试状态" />
+            <Border
+                Grid.Row="7"
+                Background="#FFFFF7DB"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock Style="{StaticResource TextValue}" Text="{Binding TestSegment, FallbackValue=准备测试}" />
+            </Border>
+            <TextBlock
+                Grid.Row="8"
+                Style="{StaticResource TextName}"
+                Text="产品结果" />
+            <Border
+                Grid.Row="9"
+                Background="{Binding Result, Converter={StaticResource ColorConverter}}"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="32"
+                    Text="{Binding Result, Converter={StaticResource TextConverter}, FallbackValue=合格}" />
+            </Border>
+        </Grid>
+        <Grid Grid.Column="1" Margin="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border Height="20" />
+            <Border
+                Grid.Row="1"
+                Background="#FFE1E1E1"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock Style="{StaticResource TextValue}" Text="{Binding ErrorMessage, FallbackValue=错误信息}" />
+            </Border>
+            <TextBlock
+                Grid.Row="2"
+                Style="{StaticResource TextName}"
+                Text="测试时间" />
+            <Border
+                Grid.Row="3"
+                Background="#FFFFF6DA"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock Style="{StaticResource TextValue}" Text="{Binding CycleTime, StringFormat={}{0:F1} s}" />
+            </Border>
+            <ListView Grid.Row="4" Margin="0,4,0,0">
+                <ListBoxItem>
+                    <TextBlock Text="123" />
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="456" />
+                </ListBoxItem>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="2" Margin="1">
+            <StackPanel>
+                <TextBlock Style="{StaticResource TextName}" Text="统计" />
+                <Grid Background="#FFFFF7DB">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource TextName}"
+                        Text="合计" />
+                </Grid>
+                <Grid Background="#FFE0A21C">
+                    <TextBlock Style="{StaticResource TextName}" Text="{Binding TotalCount, FallbackValue=0}" />
+                </Grid>
+                <Grid Background="#FFFFF7DB">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource TextName}"
+                        Text="合格" />
+                </Grid>
+                <Grid Background="#FF89E091">
+                    <TextBlock Style="{StaticResource TextName}" Text="{Binding PassCount, FallbackValue=0}" />
+                </Grid>
+                <Grid Background="#FFFFF7DB">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource TextName}"
+                        Text="不合格" />
+                </Grid>
+                <Grid Background="#FFFF8B70">
+                    <TextBlock Style="{StaticResource TextName}" Text="{Binding FailCount, FallbackValue=0}" />
+                </Grid>
+                <Grid Background="#FFFFF7DB">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource TextName}"
+                        Text="重测合格" />
+                </Grid>
+                <Grid Background="#FF35CFD1">
+                    <TextBlock Style="{StaticResource TextName}" Text="{Binding ReTestPassCount, FallbackValue=0}" />
+                </Grid>
+                <Grid Background="#FFFFF7DB" Margin="0,20,0,0">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource TextName}"
+                        Text="总测试数" />
+                </Grid>
+                <Grid Background="#FFE0A21C">
+                    <TextBlock Style="{StaticResource TextName}" Text="{Binding TotalCount, FallbackValue=0}" />
+                </Grid>
+                <Grid Background="#FFFFF7DB">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource TextName}"
+                        Text="OK产品数" />
+                </Grid>
+                <Grid Background="#FF89E091">
+                    <TextBlock Style="{StaticResource TextName}" Text="{Binding PassCount, FallbackValue=0}" />
+                </Grid>
+                <Grid Background="#FFFFF7DB">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource TextName}"
+                        Text="NG产品数" />
+                </Grid>
+                <Grid Background="#FFFF8B70">
+                    <TextBlock Style="{StaticResource TextName}" Text="{Binding FailCount, FallbackValue=0}" />
+                </Grid>
+                <Grid Background="#FFFFF7DB">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource TextName}"
+                        Text="合格率" />
+                </Grid>
+                <Grid Background="#FF35CFD1">
+                    <TextBlock Style="{StaticResource TextName}" Text="{Binding ReTestPassCount, FallbackValue=0}" />
+                </Grid>
+                <Button Margin="1" Content="清除"></Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

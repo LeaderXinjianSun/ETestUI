@@ -59,6 +59,10 @@ namespace ETestUI.ViewModels
                     {
                         _regionManager.RequestNavigate("ProjectContentRegion", "TestSegmentView");
                     }
+                    else if (SelectedItem.ToString().Contains("全局设定"))
+                    {
+                        _regionManager.RequestNavigate("ProjectContentRegion", "GlobalConfigView");
+                    }
                     break;
                 case "TestItem":
                     {
